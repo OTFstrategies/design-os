@@ -1,0 +1,5 @@
+export { AIAgents } from './AIAgents'
+export { DashboardTab } from './DashboardTab'
+export { AgentsTab } from './AgentsTab'
+export { NieuweRunTab } from './NieuweRunTab'
+export { PipelineVisualisatie } from './PipelineVisualisatie'

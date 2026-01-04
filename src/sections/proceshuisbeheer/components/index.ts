@@ -1,0 +1,5 @@
+export { Proceshuisbeheer } from './Proceshuisbeheer'
+export { DocumentDashboardTab } from './DocumentDashboardTab'
+export { HierarchieBrowserTab } from './HierarchieBrowserTab'
+export { VersiebeheerTab } from './VersiebeheerTab'
+export { RACIBeheerTab } from './RACIBeheerTab'
