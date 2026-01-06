@@ -69,6 +69,23 @@ export function useAIAgentsData(): UseAIAgentsDataResult {
   const [error, setError] = useState<Error | null>(null)
   const [isUsingFallback, setIsUsingFallback] = useState(false)
 
+  // Background refresh - doesn't show loading state to prevent UI remount
+  const refreshData = useCallback(async () => {
+    try {
+      if (!isSupabaseConfigured()) {
+        return
+      }
+      const result = await fetchAIAgentsData()
+      setData(result)
+      setIsUsingFallback(false)
+    } catch (err) {
+      console.error('Failed to refresh AI agents data:', err)
+      // Don't update error state or fallback during background refresh
+      // to prevent UI disruption
+    }
+  }, [])
+
+  // Initial fetch - shows loading state
   const fetchData = useCallback(async () => {
     setIsLoading(true)
     setError(null)
@@ -97,6 +114,7 @@ export function useAIAgentsData(): UseAIAgentsDataResult {
   }, [])
 
   // Polling for data updates (every 10 seconds)
+  // Uses refreshData instead of fetchData to prevent loading state / UI remount
   // Note: Realtime WebSocket subscription disabled - Supabase Realtime needs dashboard configuration
   // See: https://supabase.com/dashboard/project/qfhsctnvwsneaujcgpkp/database/replication
   useEffect(() => {
@@ -105,13 +123,13 @@ export function useAIAgentsData(): UseAIAgentsDataResult {
     }
 
     const pollInterval = setInterval(() => {
-      fetchData()
+      refreshData()
     }, 10000)
 
     return () => {
       clearInterval(pollInterval)
     }
-  }, [isUsingFallback, fetchData])
+  }, [isUsingFallback, refreshData])
 
   useEffect(() => {
     fetchData()
