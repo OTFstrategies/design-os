@@ -1,6 +1,6 @@
 'use client'
 
-import { Activity, CheckCircle2, Clock, AlertTriangle, TrendingUp, FileText, Sparkles, Eye, RotateCcw, ThumbsUp } from 'lucide-react'
+import { Activity, CheckCircle2, Clock, AlertTriangle, FileText, Eye, RotateCcw, ThumbsUp } from 'lucide-react'
 import type { PipelineRun, PipelineStatistieken, Agent, PipelineRunStatus, DashboardTabProps } from './types'
 import { PipelineVisualisatie } from './PipelineVisualisatie'
 
@@ -46,35 +46,6 @@ export function DashboardTab({
   return (
     <div className="h-full overflow-y-auto">
       <div className="p-6 space-y-6">
-        {/* Stats cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <StatCard
-            icon={<Activity className="w-5 h-5" />}
-            label="Runs vandaag"
-            value={statistieken.runsVandaag}
-            color="blue"
-          />
-          <StatCard
-            icon={<TrendingUp className="w-5 h-5" />}
-            label="Succes ratio"
-            value={`${Math.round(statistieken.succesRatio * 100)}%`}
-            color="emerald"
-          />
-          <StatCard
-            icon={<Clock className="w-5 h-5" />}
-            label="Gem. doorlooptijd"
-            value={statistieken.gemiddeldeDoorlooptijd}
-            color="stone"
-          />
-          <StatCard
-            icon={<Sparkles className="w-5 h-5" />}
-            label="Nieuwe zinnen"
-            value={statistieken.nieuweZinnenDezeWeek}
-            subLabel="deze week"
-            color="amber"
-          />
-        </div>
-
         {/* Active runs section */}
         {actieveRuns.length > 0 && (
           <section>
@@ -188,40 +159,6 @@ export function DashboardTab({
             </table>
           </div>
         </section>
-      </div>
-    </div>
-  )
-}
-
-interface StatCardProps {
-  icon: React.ReactNode
-  label: string
-  value: string | number
-  subLabel?: string
-  color: 'blue' | 'emerald' | 'stone' | 'amber'
-}
-
-const colorMap = {
-  blue: 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400',
-  emerald: 'bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400',
-  stone: 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400',
-  amber: 'bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400',
-}
-
-function StatCard({ icon, label, value, subLabel, color }: StatCardProps) {
-  return (
-    <div className="bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-4">
-      <div className="flex items-center gap-3">
-        <div className={`p-2 rounded-lg ${colorMap[color]}`}>
-          {icon}
-        </div>
-        <div>
-          <div className="text-2xl font-bold text-stone-900 dark:text-stone-100">{value}</div>
-          <div className="text-xs text-stone-500 dark:text-stone-400">
-            {label}
-            {subLabel && <span className="ml-1 opacity-60">{subLabel}</span>}
-          </div>
-        </div>
       </div>
     </div>
   )
