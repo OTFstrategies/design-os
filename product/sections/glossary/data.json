@@ -1,0 +1,460 @@
+{
+  "categorieen": [
+    {
+      "code": "HEF-BEW",
+      "naam": "Heftruckbewegingen",
+      "beschrijving": "Standaardzinnen voor het bedienen en verplaatsen van heftrucks."
+    },
+    {
+      "code": "OHD-EL",
+      "naam": "Onderhoud Elektrisch",
+      "beschrijving": "Standaardzinnen voor elektrisch onderhoud en veiligheidscontroles."
+    },
+    {
+      "code": "DISP",
+      "naam": "Dispatch",
+      "beschrijving": "Standaardzinnen voor expeditie, verzending en logistieke handelingen."
+    }
+  ],
+  "tags": [
+    { "prefix": "@loc", "waarde": "magazijn", "categorie": "Locatie", "kleur": "blue" },
+    { "prefix": "@loc", "waarde": "laadperron", "categorie": "Locatie", "kleur": "blue" },
+    { "prefix": "@equip", "waarde": "heftruck", "categorie": "Apparatuur", "kleur": "green" },
+    { "prefix": "@equip", "waarde": "pompwagen", "categorie": "Apparatuur", "kleur": "green" },
+    { "prefix": "@act", "waarde": "starten", "categorie": "Actie", "kleur": "purple" },
+    { "prefix": "@safe", "waarde": "veiligheid", "categorie": "Veiligheid", "kleur": "orange" }
+  ],
+  "placeholders": [
+    { "naam": "[locatie]", "format": "tekst", "toegestaneWaarden": ["magazijn A", "magazijn B", "laadperron 1", "laadperron 2"] },
+    { "naam": "[bestemming]", "format": "tekst", "toegestaneWaarden": ["dock 1", "dock 2", "opslagzone C"] },
+    { "naam": "[apparaat]", "format": "tekst", "toegestaneWaarden": ["heftruck", "pompwagen", "orderpicker"] },
+    { "naam": "[tijd]", "format": "getal", "toegestaneWaarden": ["5", "10", "15", "30"] }
+  ],
+  "documenten": [
+    { "code": "WI-HEF-001", "titel": "Werkinstructie Heftruck Opstarten", "niveau": "L5" },
+    { "code": "WI-HEF-002", "titel": "Werkinstructie Heftruck Parkeren", "niveau": "L5" },
+    { "code": "WI-DISP-001", "titel": "Werkinstructie Orderpicking", "niveau": "L5" },
+    { "code": "PR-OHD-001", "titel": "Procedure Dagelijks Onderhoud", "niveau": "L4" }
+  ],
+  "standaardzinnen": [
+    {
+      "id": "sz-001",
+      "code": "HEF-BEW-01",
+      "tekst": "Start de heftruck.",
+      "categorieCode": "HEF-BEW",
+      "tags": ["@equip:heftruck", "@act:starten"],
+      "placeholders": [],
+      "laatstGewijzigd": "2025-12-15",
+      "gebruiktIn": ["WI-HEF-001", "PR-OHD-001"]
+    },
+    {
+      "id": "sz-002",
+      "code": "HEF-BEW-02",
+      "tekst": "Rijd naar [locatie].",
+      "categorieCode": "HEF-BEW",
+      "tags": ["@equip:heftruck", "@loc:magazijn"],
+      "placeholders": ["[locatie]"],
+      "laatstGewijzigd": "2025-12-10",
+      "gebruiktIn": ["WI-HEF-001", "WI-DISP-001"]
+    },
+    {
+      "id": "sz-003",
+      "code": "HEF-BEW-03",
+      "tekst": "Parkeer de heftruck op de aangewezen parkeerplaats.",
+      "categorieCode": "HEF-BEW",
+      "tags": ["@equip:heftruck", "@loc:magazijn"],
+      "placeholders": [],
+      "laatstGewijzigd": "2025-11-28",
+      "gebruiktIn": ["WI-HEF-002"]
+    },
+    {
+      "id": "sz-004",
+      "code": "HEF-BEW-04",
+      "tekst": "Controleer de heftruck visueel op beschadigingen.",
+      "categorieCode": "HEF-BEW",
+      "tags": ["@equip:heftruck", "@safe:veiligheid"],
+      "placeholders": [],
+      "laatstGewijzigd": "2025-12-01",
+      "gebruiktIn": ["WI-HEF-001", "PR-OHD-001"]
+    },
+    {
+      "id": "sz-005",
+      "code": "OHD-EL-01",
+      "tekst": "Schakel de stroomtoevoer uit voordat je begint.",
+      "categorieCode": "OHD-EL",
+      "tags": ["@safe:veiligheid"],
+      "placeholders": [],
+      "laatstGewijzigd": "2025-10-20",
+      "gebruiktIn": ["PR-OHD-001"]
+    },
+    {
+      "id": "sz-006",
+      "code": "DISP-01",
+      "tekst": "Verplaats de pallet naar [bestemming].",
+      "categorieCode": "DISP",
+      "tags": ["@loc:laadperron", "@equip:pompwagen"],
+      "placeholders": ["[bestemming]"],
+      "laatstGewijzigd": "2025-12-20",
+      "gebruiktIn": ["WI-DISP-001"]
+    },
+    {
+      "id": "sz-007",
+      "code": "DISP-02",
+      "tekst": "Scan de barcode van de pallet.",
+      "categorieCode": "DISP",
+      "tags": ["@act:starten"],
+      "placeholders": [],
+      "laatstGewijzigd": "2025-12-18",
+      "gebruiktIn": ["WI-DISP-001"]
+    },
+    {
+      "id": "sz-008",
+      "code": "HEF-BEW-05",
+      "tekst": "Wacht [tijd] minuten tot de motor op temperatuur is.",
+      "categorieCode": "HEF-BEW",
+      "tags": ["@equip:heftruck"],
+      "placeholders": ["[tijd]"],
+      "laatstGewijzigd": "2025-12-22",
+      "gebruiktIn": []
+    }
+  ],
+  "atomaireSequenties": [
+    {
+      "id": "seq-001",
+      "code": "SEQ-HEF-START",
+      "naam": "Heftruck opstarten",
+      "volgordeVerplicht": true,
+      "stappen": [
+        { "volgorde": 1, "standaardzinCode": "HEF-BEW-04" },
+        { "volgorde": 2, "standaardzinCode": "HEF-BEW-01" },
+        { "volgorde": 3, "standaardzinCode": "HEF-BEW-05" }
+      ],
+      "gebruiktIn": ["WI-HEF-001"]
+    },
+    {
+      "id": "seq-002",
+      "code": "SEQ-HEF-PARK",
+      "naam": "Heftruck parkeren",
+      "volgordeVerplicht": true,
+      "stappen": [
+        { "volgorde": 1, "standaardzinCode": "HEF-BEW-02" },
+        { "volgorde": 2, "standaardzinCode": "HEF-BEW-03" }
+      ],
+      "gebruiktIn": ["WI-HEF-002"]
+    }
+  ],
+  "terminologie": [
+    {
+      "id": "term-001",
+      "voorkeursterm": "Heftruck",
+      "verbodenSynoniemen": ["vorkheftruck", "forklift", "clark"],
+      "definitie": "Gemotoriseerd voertuig met vorken voor het tillen en verplaatsen van pallets en goederen.",
+      "context": "Altijd met lidwoord \"de\". Gebruik \"heftruck\" ook wanneer specifieke types bedoeld worden.",
+      "voorbeelden": ["Rijd de heftruck naar de laadkade.", "Controleer de heftruck voor gebruik."],
+      "categorie": "apparatuur"
+    },
+    {
+      "id": "term-002",
+      "voorkeursterm": "Overhead door",
+      "verbodenSynoniemen": ["roldeur", "sectionaaldeur", "poort"],
+      "definitie": "Verticaal openende deur in magazijn of productiehal, bestaande uit horizontale secties.",
+      "context": "Gebruik \"overhead door\" in alle technische documentatie. \"Deur\" alleen als algemene aanduiding.",
+      "voorbeelden": ["Open de overhead door volledig.", "Wacht tot de overhead door stilstaat."],
+      "categorie": "infrastructuur"
+    },
+    {
+      "id": "term-003",
+      "voorkeursterm": "Handscanner",
+      "verbodenSynoniemen": ["scanner", "barcodelezer"],
+      "definitie": "Draagbaar apparaat voor het scannen van barcodes op producten en locaties.",
+      "context": "\"Scanner\" is te algemeen en kan verwarring geven met andere scanapparatuur.",
+      "voorbeelden": ["Pak de handscanner uit het oplaadstation.", "Scan de barcode met de handscanner."],
+      "categorie": "apparatuur"
+    },
+    {
+      "id": "term-004",
+      "voorkeursterm": "Operator",
+      "verbodenSynoniemen": ["medewerker", "werknemer", "persoon"],
+      "definitie": "Persoon die een specifieke taak of machine bedient binnen het operationele proces.",
+      "context": "Gebruik \"operator\" voor uitvoerende rollen. \"Medewerker\" is te algemeen.",
+      "voorbeelden": ["De operator controleert de lading.", "Meld afwijkingen aan de operator."],
+      "categorie": "rollen"
+    },
+    {
+      "id": "term-005",
+      "voorkeursterm": "Pallet",
+      "verbodenSynoniemen": ["europallet", "blokpallet"],
+      "definitie": "Houten of kunststof laadplatform voor opslag en transport van goederen.",
+      "context": "Gebruik \"pallet\" als algemene term. Specificeer type alleen als relevant voor de instructie.",
+      "voorbeelden": ["Plaats de pallet in het rek.", "Controleer de pallet op beschadigingen."],
+      "categorie": "materiaal"
+    },
+    {
+      "id": "term-006",
+      "voorkeursterm": "Picklocatie",
+      "verbodenSynoniemen": ["pickplek", "verzamellocatie", "orderpicklocatie"],
+      "definitie": "Specifieke opslaglocatie waaruit producten worden verzameld voor orders.",
+      "context": "Gebruik de samengestelde schrijfwijze \"picklocatie\" (zonder koppelteken).",
+      "voorbeelden": ["Ga naar de picklocatie.", "De picklocatie is leeg."],
+      "categorie": "locatie"
+    },
+    {
+      "id": "term-007",
+      "voorkeursterm": "WMS",
+      "verbodenSynoniemen": ["systeem", "het systeem", "warehouse systeem"],
+      "definitie": "Warehouse Management System - software voor magazijnbeheer en voorraadbeheer.",
+      "context": "Gebruik altijd de afkorting \"WMS\". Schrijf bij eerste vermelding voluit met afkorting.",
+      "voorbeelden": ["Bevestig de actie in WMS.", "WMS toont de volgende opdracht."],
+      "categorie": "systeem"
+    },
+    {
+      "id": "term-008",
+      "voorkeursterm": "Reachtruck",
+      "verbodenSynoniemen": ["reachtruc", "reach truck", "reach-truck"],
+      "definitie": "Heftruck met uitschuifbare vorken voor het werken in smalle gangpaden en hoge rekken.",
+      "context": "Schrijf als een woord zonder koppelteken: \"reachtruck\".",
+      "voorbeelden": ["Gebruik de reachtruck voor hoge locaties.", "Parkeer de reachtruck in de aangewezen zone."],
+      "categorie": "apparatuur"
+    }
+  ],
+  "stijlregelCategorieen": [
+    {
+      "id": "cat-imperatief",
+      "code": "imperatiefvorm",
+      "naam": "Imperatiefvorm",
+      "beschrijving": "Regels over het gebruik van de gebiedende wijs in instructies.",
+      "icoon": "command"
+    },
+    {
+      "id": "cat-actief",
+      "code": "actieve-zinnen",
+      "naam": "Actieve zinnen",
+      "beschrijving": "Regels over actief versus passief taalgebruik.",
+      "icoon": "arrow-right"
+    },
+    {
+      "id": "cat-verboden",
+      "code": "verboden-woorden",
+      "naam": "Verboden woorden",
+      "beschrijving": "Woorden en formuleringen die niet gebruikt mogen worden.",
+      "icoon": "ban"
+    },
+    {
+      "id": "cat-zinlengte",
+      "code": "zinlengte",
+      "naam": "Zinlengte",
+      "beschrijving": "Regels over de lengte en structuur van zinnen.",
+      "icoon": "ruler"
+    },
+    {
+      "id": "cat-consistentie",
+      "code": "consistentie",
+      "naam": "Consistentie",
+      "beschrijving": "Regels over consequent woordgebruik en terminologie.",
+      "icoon": "repeat"
+    }
+  ],
+  "stijlregels": [
+    {
+      "id": "regel-001",
+      "categorie": "imperatiefvorm",
+      "titel": "Gebruik de gebiedende wijs",
+      "beschrijving": "Begin instructies altijd met een werkwoord in de gebiedende wijs.",
+      "voorbeeldGoed": "Controleer de lading op beschadigingen.",
+      "voorbeeldFout": "De lading moet gecontroleerd worden op beschadigingen.",
+      "toelichting": "De gebiedende wijs is direct en ondubbelzinnig."
+    },
+    {
+      "id": "regel-002",
+      "categorie": "imperatiefvorm",
+      "titel": "Een actie per zin",
+      "beschrijving": "Elke zin bevat maximaal een handeling.",
+      "voorbeeldGoed": "Scan de barcode. Bevestig de locatie.",
+      "voorbeeldFout": "Scan de barcode en bevestig vervolgens de locatie in het systeem.",
+      "toelichting": "Een actie per zin voorkomt dat stappen worden overgeslagen."
+    },
+    {
+      "id": "regel-003",
+      "categorie": "actieve-zinnen",
+      "titel": "Vermijd lijdende vorm",
+      "beschrijving": "Gebruik actieve zinnen waarin het subject de handeling uitvoert.",
+      "voorbeeldGoed": "De operator plaatst de pallet in het rek.",
+      "voorbeeldFout": "De pallet wordt in het rek geplaatst.",
+      "toelichting": "Actieve zinnen zijn duidelijker over wie wat doet."
+    },
+    {
+      "id": "regel-004",
+      "categorie": "actieve-zinnen",
+      "titel": "Benoem de actor expliciet",
+      "beschrijving": "Maak altijd duidelijk wie de handeling uitvoert.",
+      "voorbeeldGoed": "De supervisor keurt de order goed.",
+      "voorbeeldFout": "De order wordt goedgekeurd.",
+      "toelichting": "Expliciete actoren voorkomen onduidelijkheid over verantwoordelijkheid."
+    },
+    {
+      "id": "regel-005",
+      "categorie": "verboden-woorden",
+      "titel": "Vermijd \"men\"",
+      "beschrijving": "Gebruik nooit het onbepaalde voornaamwoord \"men\".",
+      "voorbeeldGoed": "Meld afwijkingen aan de supervisor.",
+      "voorbeeldFout": "Men dient afwijkingen te melden.",
+      "toelichting": "\"Men\" is vaag en creëert onduidelijkheid over verantwoordelijkheid."
+    },
+    {
+      "id": "regel-006",
+      "categorie": "verboden-woorden",
+      "titel": "Vermijd \"dient\"",
+      "beschrijving": "Gebruik \"moet\" in plaats van \"dient\".",
+      "voorbeeldGoed": "Draag veiligheidsschoenen.",
+      "voorbeeldFout": "Men dient veiligheidsschoenen te dragen.",
+      "toelichting": "\"Dient\" is formeel en omslachtig."
+    },
+    {
+      "id": "regel-007",
+      "categorie": "verboden-woorden",
+      "titel": "Vermijd \"eventueel\"",
+      "beschrijving": "Instructies zijn of verplicht of niet.",
+      "voorbeeldGoed": "Bij schade: meld dit aan de supervisor.",
+      "voorbeeldFout": "Eventueel kun je schade melden.",
+      "toelichting": "Vage formuleringen leiden tot inconsequente uitvoering."
+    },
+    {
+      "id": "regel-008",
+      "categorie": "zinlengte",
+      "titel": "Maximaal 15 woorden per zin",
+      "beschrijving": "Houd zinnen kort en bondig.",
+      "voorbeeldGoed": "Controleer de pallet. Let op scheuren en vlekken. Meld beschadigingen.",
+      "voorbeeldFout": "Controleer de pallet grondig op eventuele scheuren, vlekken of andere beschadigingen en meld deze indien aanwezig aan de supervisor.",
+      "toelichting": "Korte zinnen zijn makkelijker te lezen en onthouden."
+    },
+    {
+      "id": "regel-009",
+      "categorie": "zinlengte",
+      "titel": "Geen bijzinnen in instructies",
+      "beschrijving": "Vermijd complexe zinsconstructies met bijzinnen.",
+      "voorbeeldGoed": "De pallet is beschadigd. Meld dit aan de supervisor.",
+      "voorbeeldFout": "Als de pallet beschadigd is, wat je kunt zien aan scheuren of vlekken, meld dit dan aan de supervisor.",
+      "toelichting": "Bijzinnen maken instructies moeilijker te volgen."
+    },
+    {
+      "id": "regel-010",
+      "categorie": "consistentie",
+      "titel": "Consistent woordgebruik",
+      "beschrijving": "Gebruik dezelfde term voor hetzelfde concept door het hele document.",
+      "voorbeeldGoed": "Pak de handscanner. Scan met de handscanner.",
+      "voorbeeldFout": "Pak de scanner. Scan met de barcodelezer.",
+      "toelichting": "Wisselende termen suggereren dat het om verschillende zaken gaat."
+    }
+  ],
+  "documentNiveaus": [
+    {
+      "id": "niveau-l1",
+      "code": "L1",
+      "naam": "Strategisch",
+      "beschrijving": "Organisatiebrede beleidslijnen en missie.",
+      "doelgroep": "Directie, Management",
+      "voorbeelden": ["Kwaliteitsbeleid", "Veiligheidsbeleid", "Missie & Visie"],
+      "templateSecties": ["Doel", "Scope", "Beleidsprincipes", "Verantwoordelijkheden"],
+      "kleur": "indigo"
+    },
+    {
+      "id": "niveau-l2",
+      "code": "L2",
+      "naam": "Tactisch",
+      "beschrijving": "Afdelingsoverstijgende processen en procesbeschrijvingen.",
+      "doelgroep": "Procesmanagers, Afdelingshoofden",
+      "voorbeelden": ["Inkoopproces", "Ontvangstproces", "Verzendproces"],
+      "templateSecties": ["Procesbeschrijving", "Processtappen", "Rollen", "KPIs"],
+      "kleur": "purple"
+    },
+    {
+      "id": "niveau-l3",
+      "code": "L3",
+      "naam": "Operationeel",
+      "beschrijving": "Procedures die beschrijven hoe processen worden uitgevoerd.",
+      "doelgroep": "Teamleiders, Supervisors",
+      "voorbeelden": ["Ontvangstprocedure", "Retourprocedure", "Klachtenprocedure"],
+      "templateSecties": ["Doel", "Toepassingsgebied", "Procedure", "Uitzonderingen", "Registraties"],
+      "kleur": "blue"
+    },
+    {
+      "id": "niveau-l4",
+      "code": "L4",
+      "naam": "Uitvoerend",
+      "beschrijving": "Werkinstructies met gedetailleerde stap-voor-stap handelingen.",
+      "doelgroep": "Operators, Uitvoerend personeel",
+      "voorbeelden": ["Heftruck starten", "Pallet inboeken", "Order picken"],
+      "templateSecties": ["Benodigdheden", "Voorbereiding", "Stappen", "Controle", "Veiligheid"],
+      "kleur": "green"
+    },
+    {
+      "id": "niveau-l5",
+      "code": "L5",
+      "naam": "Registratie",
+      "beschrijving": "Formulieren, checklists en handboeken.",
+      "doelgroep": "Alle medewerkers",
+      "voorbeelden": ["Dagelijkse heftruckcheck", "Schoonmaakchecklist", "Apparatuurhandboek"],
+      "templateSecties": ["Instructies", "Invoervelden", "Handtekeningen"],
+      "kleur": "amber"
+    }
+  ],
+  "documentTypes": [
+    {
+      "id": "type-pr",
+      "code": "PR",
+      "naam": "Procedure",
+      "niveau": "L3",
+      "beschrijving": "Beschrijving van een werkproces inclusief beslismomenten.",
+      "structuurVereisten": ["Doel", "Scope", "Definities", "Procedure", "Registraties"]
+    },
+    {
+      "id": "type-wi",
+      "code": "WI",
+      "naam": "Work Instruction",
+      "niveau": "L4",
+      "beschrijving": "Gedetailleerde stap-voor-stap instructies voor een specifieke taak.",
+      "structuurVereisten": ["Doel", "Benodigdheden", "Stappen", "Veiligheid", "Controle"]
+    },
+    {
+      "id": "type-ds",
+      "code": "DS",
+      "naam": "Datasheet",
+      "niveau": "L5",
+      "beschrijving": "Technische specificaties en referentie-informatie.",
+      "structuurVereisten": ["Titel", "Specificaties", "Technische gegevens", "Bijlagen"]
+    },
+    {
+      "id": "type-fo",
+      "code": "FO",
+      "naam": "Form / Report",
+      "niveau": "L5",
+      "beschrijving": "Invuldocument voor registratie van gegevens.",
+      "structuurVereisten": ["Titel", "Versie", "Invoervelden", "Handtekening"]
+    }
+  ],
+  "rollen": [
+    { "id": "rol-opsteller", "code": "OPST", "naam": "Opsteller", "beschrijving": "Verantwoordelijk voor het schrijven van documentatie." },
+    { "id": "rol-reviewer", "code": "REV", "naam": "Reviewer", "beschrijving": "Controleert documenten op correctheid." },
+    { "id": "rol-goedkeurder", "code": "GOEDKR", "naam": "Goedkeurder", "beschrijving": "Geeft formele goedkeuring voor publicatie." },
+    { "id": "rol-beheerder", "code": "BEHEER", "naam": "Beheerder", "beschrijving": "Beheert de documentbibliotheek." },
+    { "id": "rol-gebruiker", "code": "GEBR", "naam": "Gebruiker", "beschrijving": "Ontvangt en werkt met de documentatie." }
+  ],
+  "raciMatrix": [
+    { "documentTypeCode": "PR", "toewijzingen": { "OPST": "R", "REV": "C", "GOEDKR": "A", "BEHEER": "I", "GEBR": "I" } },
+    { "documentTypeCode": "WI", "toewijzingen": { "OPST": "R", "REV": "C", "GOEDKR": "A", "BEHEER": "I", "GEBR": "I" } },
+    { "documentTypeCode": "DS", "toewijzingen": { "OPST": "R", "REV": "C", "GOEDKR": "A", "BEHEER": "R", "GEBR": "I" } },
+    { "documentTypeCode": "FO", "toewijzingen": { "OPST": "R", "REV": "C", "GOEDKR": "A", "BEHEER": "I", "GEBR": "R" } }
+  ],
+  "coderingFormaat": {
+    "patroon": "[NIVEAU]_[TYPE]_[AFD]_[CAT]_[NR]_V[VERSIE]",
+    "voorbeeld": "L4_WI_LOG_HEF_001_V1.0",
+    "segmenten": [
+      { "naam": "NIVEAU", "beschrijving": "Documentniveau (L1-L5)", "voorbeelden": ["L1", "L2", "L3", "L4", "L5"] },
+      { "naam": "TYPE", "beschrijving": "Documenttype", "voorbeelden": ["WI", "PROC", "FORM", "CHKLST", "HB"] },
+      { "naam": "AFD", "beschrijving": "Afdeling (3 letters)", "voorbeelden": ["LOG", "PRD", "QA", "ADM"] },
+      { "naam": "CAT", "beschrijving": "Categorie (3-4 letters)", "voorbeelden": ["HEF", "ONTV", "VERZ", "ALG"] },
+      { "naam": "NR", "beschrijving": "Volgnummer (3 cijfers)", "voorbeelden": ["001", "002", "010"] },
+      { "naam": "VERSIE", "beschrijving": "Versienummer", "voorbeelden": ["V1.0", "V1.1", "V2.0"] }
+    ]
+  }
+}
