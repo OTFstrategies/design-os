@@ -1,0 +1,151 @@
+import type { Categorie, Tag, Placeholder, DocumentRef, Standaardzin, AtomairSequentie } from './types'
+
+export const categorieen: Categorie[] = [
+  {
+    code: 'HEF-BEW',
+    naam: 'Heftruckbewegingen',
+    beschrijving: 'Standaardzinnen voor het bedienen en verplaatsen van heftrucks.',
+  },
+  {
+    code: 'OHD-EL',
+    naam: 'Onderhoud Elektrisch',
+    beschrijving: 'Standaardzinnen voor elektrisch onderhoud en veiligheidscontroles.',
+  },
+  {
+    code: 'DISP',
+    naam: 'Dispatch',
+    beschrijving: 'Standaardzinnen voor expeditie, verzending en logistieke handelingen.',
+  },
+]
+
+export const tags: Tag[] = [
+  { prefix: '@loc', waarde: 'magazijn', categorie: 'Locatie', kleur: 'blue' },
+  { prefix: '@loc', waarde: 'laadperron', categorie: 'Locatie', kleur: 'blue' },
+  { prefix: '@equip', waarde: 'heftruck', categorie: 'Apparatuur', kleur: 'green' },
+  { prefix: '@equip', waarde: 'pompwagen', categorie: 'Apparatuur', kleur: 'green' },
+  { prefix: '@act', waarde: 'starten', categorie: 'Actie', kleur: 'purple' },
+  { prefix: '@safe', waarde: 'veiligheid', categorie: 'Veiligheid', kleur: 'orange' },
+]
+
+export const placeholders: Placeholder[] = [
+  { naam: '[locatie]', format: 'tekst', toegestaneWaarden: ['magazijn A', 'magazijn B', 'laadperron 1', 'laadperron 2'] },
+  { naam: '[bestemming]', format: 'tekst', toegestaneWaarden: ['dock 1', 'dock 2', 'opslagzone C'] },
+  { naam: '[apparaat]', format: 'tekst', toegestaneWaarden: ['heftruck', 'pompwagen', 'orderpicker'] },
+  { naam: '[tijd]', format: 'getal', toegestaneWaarden: ['5', '10', '15', '30'] },
+]
+
+export const documenten: DocumentRef[] = [
+  { code: 'WI-HEF-001', titel: 'Werkinstructie Heftruck Opstarten', niveau: 'L5' },
+  { code: 'WI-HEF-002', titel: 'Werkinstructie Heftruck Parkeren', niveau: 'L5' },
+  { code: 'WI-DISP-001', titel: 'Werkinstructie Orderpicking', niveau: 'L5' },
+  { code: 'PR-OHD-001', titel: 'Procedure Dagelijks Onderhoud', niveau: 'L4' },
+]
+
+export const standaardzinnen: Standaardzin[] = [
+  {
+    id: 'sz-001',
+    code: 'HEF-BEW-01',
+    tekst: 'Start de heftruck.',
+    categorieCode: 'HEF-BEW',
+    tags: ['@equip:heftruck', '@act:starten'],
+    placeholders: [],
+    laatstGewijzigd: '2025-12-15',
+    gebruiktIn: ['WI-HEF-001', 'PR-OHD-001'],
+  },
+  {
+    id: 'sz-002',
+    code: 'HEF-BEW-02',
+    tekst: 'Rijd naar [locatie].',
+    categorieCode: 'HEF-BEW',
+    tags: ['@equip:heftruck', '@loc:magazijn'],
+    placeholders: ['[locatie]'],
+    laatstGewijzigd: '2025-12-10',
+    gebruiktIn: ['WI-HEF-001', 'WI-DISP-001'],
+  },
+  {
+    id: 'sz-003',
+    code: 'HEF-BEW-03',
+    tekst: 'Parkeer de heftruck op de aangewezen parkeerplaats.',
+    categorieCode: 'HEF-BEW',
+    tags: ['@equip:heftruck', '@loc:magazijn'],
+    placeholders: [],
+    laatstGewijzigd: '2025-11-28',
+    gebruiktIn: ['WI-HEF-002'],
+  },
+  {
+    id: 'sz-004',
+    code: 'HEF-BEW-04',
+    tekst: 'Controleer de heftruck visueel op beschadigingen.',
+    categorieCode: 'HEF-BEW',
+    tags: ['@equip:heftruck', '@safe:veiligheid'],
+    placeholders: [],
+    laatstGewijzigd: '2025-12-01',
+    gebruiktIn: ['WI-HEF-001', 'PR-OHD-001'],
+  },
+  {
+    id: 'sz-005',
+    code: 'OHD-EL-01',
+    tekst: 'Schakel de stroomtoevoer uit voordat je begint.',
+    categorieCode: 'OHD-EL',
+    tags: ['@safe:veiligheid'],
+    placeholders: [],
+    laatstGewijzigd: '2025-10-20',
+    gebruiktIn: ['PR-OHD-001'],
+  },
+  {
+    id: 'sz-006',
+    code: 'DISP-01',
+    tekst: 'Verplaats de pallet naar [bestemming].',
+    categorieCode: 'DISP',
+    tags: ['@loc:laadperron', '@equip:pompwagen'],
+    placeholders: ['[bestemming]'],
+    laatstGewijzigd: '2025-12-20',
+    gebruiktIn: ['WI-DISP-001'],
+  },
+  {
+    id: 'sz-007',
+    code: 'DISP-02',
+    tekst: 'Scan de barcode van de pallet.',
+    categorieCode: 'DISP',
+    tags: ['@act:starten'],
+    placeholders: [],
+    laatstGewijzigd: '2025-12-18',
+    gebruiktIn: ['WI-DISP-001'],
+  },
+  {
+    id: 'sz-008',
+    code: 'HEF-BEW-05',
+    tekst: 'Wacht [tijd] minuten tot de motor op temperatuur is.',
+    categorieCode: 'HEF-BEW',
+    tags: ['@equip:heftruck'],
+    placeholders: ['[tijd]'],
+    laatstGewijzigd: '2025-12-22',
+    gebruiktIn: [],
+  },
+]
+
+export const atomaireSequenties: AtomairSequentie[] = [
+  {
+    id: 'seq-001',
+    code: 'SEQ-HEF-START',
+    naam: 'Heftruck opstarten',
+    volgordeVerplicht: true,
+    stappen: [
+      { volgorde: 1, standaardzinCode: 'HEF-BEW-04' },
+      { volgorde: 2, standaardzinCode: 'HEF-BEW-01' },
+      { volgorde: 3, standaardzinCode: 'HEF-BEW-05' },
+    ],
+    gebruiktIn: ['WI-HEF-001'],
+  },
+  {
+    id: 'seq-002',
+    code: 'SEQ-HEF-PARK',
+    naam: 'Heftruck parkeren',
+    volgordeVerplicht: true,
+    stappen: [
+      { volgorde: 1, standaardzinCode: 'HEF-BEW-02' },
+      { volgorde: 2, standaardzinCode: 'HEF-BEW-03' },
+    ],
+    gebruiktIn: ['WI-HEF-002'],
+  },
+]

@@ -1,0 +1,375 @@
+import type { Document, HierarchieNode, Persoon, Rol, RACIToewijzing, VersieHistorie, Statistieken } from './types'
+
+export const documenten: Document[] = [
+  {
+    id: "doc-001",
+    code: "WI-HEF-001",
+    titel: "Heftruckinspectie dagelijkse controle",
+    niveau: "N5",
+    type: "WI",
+    status: "active",
+    versie: "1.2",
+    laatstGewijzigd: "2024-12-15",
+    eigenaar: "Jan van der Berg",
+    afdeling: "Warehouse",
+    parentId: "doc-n4-001",
+    aantalStappen: 18,
+    tags: ["@equip:heftruck", "@safe:inspectie", "@loc:warehouse"]
+  },
+  {
+    id: "doc-002",
+    code: "WI-REI-003",
+    titel: "Schoonmaakprocedure koelcel",
+    niveau: "N5",
+    type: "WI",
+    status: "review",
+    versie: "2.0-draft",
+    laatstGewijzigd: "2024-12-18",
+    eigenaar: "Maria Jansen",
+    afdeling: "Reiniging",
+    parentId: "doc-n4-002",
+    aantalStappen: 24,
+    tags: ["@loc:koelcel", "@mat:reinigingsmiddel", "@safe:pbm"]
+  },
+  {
+    id: "doc-003",
+    code: "WI-PAL-012",
+    titel: "Palletwikkelmachine instellen",
+    niveau: "N5",
+    type: "WI",
+    status: "draft",
+    versie: "0.1",
+    laatstGewijzigd: "2024-12-19",
+    eigenaar: "Pieter de Groot",
+    afdeling: "Expeditie",
+    parentId: "doc-n4-003",
+    aantalStappen: 28,
+    tags: ["@equip:wikkelmachine", "@loc:expeditie", "@act:instellen"]
+  },
+  {
+    id: "doc-004",
+    code: "PR-NRG-002",
+    titel: "Noodprocedure stroomuitval",
+    niveau: "N4",
+    type: "PR",
+    status: "active",
+    versie: "2.0",
+    laatstGewijzigd: "2024-12-18",
+    eigenaar: "Kees Bakker",
+    afdeling: "Technische Dienst",
+    parentId: "doc-n3-002",
+    aantalStappen: 32,
+    tags: ["@safe:nood", "@equip:ups", "@proc:evacuatie"]
+  },
+  {
+    id: "doc-005",
+    code: "WI-ORD-007",
+    titel: "Orderpicken zone B",
+    niveau: "N5",
+    type: "WI",
+    status: "obsolete",
+    versie: "1.5",
+    laatstGewijzigd: "2024-11-01",
+    eigenaar: "Linda Smits",
+    afdeling: "Warehouse",
+    parentId: "doc-n4-004",
+    aantalStappen: 12,
+    tags: ["@loc:zone-b", "@act:picken", "@equip:scanner"]
+  },
+  {
+    id: "doc-006",
+    code: "WI-OHD-015",
+    titel: "Preventief onderhoud koelinstallatie",
+    niveau: "N5",
+    type: "WI",
+    status: "active",
+    versie: "3.1",
+    laatstGewijzigd: "2024-12-10",
+    eigenaar: "Kees Bakker",
+    afdeling: "Technische Dienst",
+    parentId: "doc-n4-005",
+    aantalStappen: 45,
+    tags: ["@equip:koelinstallatie", "@act:onderhoud", "@phase:preventief"]
+  },
+  {
+    id: "doc-007",
+    code: "PR-VEI-001",
+    titel: "Veiligheidsinstructie nieuwe medewerkers",
+    niveau: "N4",
+    type: "PR",
+    status: "review",
+    versie: "4.0-draft",
+    laatstGewijzigd: "2024-12-17",
+    eigenaar: "Maria Jansen",
+    afdeling: "HR & Veiligheid",
+    parentId: "doc-n3-003",
+    aantalStappen: 20,
+    tags: ["@safe:introductie", "@proc:onboarding"]
+  },
+  {
+    id: "doc-008",
+    code: "DS-INV-002",
+    titel: "Inventarisatie magazijn sjabloon",
+    niveau: "N5",
+    type: "DS",
+    status: "active",
+    versie: "1.0",
+    laatstGewijzigd: "2024-12-05",
+    eigenaar: "Jan van der Berg",
+    afdeling: "Warehouse",
+    parentId: "doc-n4-006",
+    aantalStappen: 8,
+    tags: ["@act:inventarisatie", "@loc:magazijn"]
+  }
+]
+
+export const hierarchie: HierarchieNode[] = [
+  {
+    id: "doc-n1-001",
+    niveau: "N1",
+    titel: "Heuschen & Schrouff Waardeketen",
+    code: "N1-HSF",
+    expanded: true,
+    children: [
+      {
+        id: "doc-n2-001",
+        niveau: "N2",
+        titel: "Warehousing & Distributie",
+        code: "N2-WAR",
+        miroLink: "https://miro.com/app/board/uXjVN-hsf-warehousing",
+        expanded: true,
+        children: [
+          {
+            id: "doc-n3-001",
+            niveau: "N3",
+            titel: "Inbound Logistiek",
+            code: "N3-INB",
+            miroLink: "https://miro.com/app/board/uXjVN-hsf-inbound",
+            expanded: true,
+            children: [
+              {
+                id: "doc-n4-001",
+                niveau: "N4",
+                titel: "Goederenontvangst",
+                code: "N4-ONT",
+                documentCount: 5,
+                expanded: false,
+                children: []
+              },
+              {
+                id: "doc-n4-004",
+                niveau: "N4",
+                titel: "Orderpicking",
+                code: "N4-PIC",
+                documentCount: 8,
+                expanded: false,
+                children: []
+              }
+            ]
+          },
+          {
+            id: "doc-n3-002",
+            niveau: "N3",
+            titel: "Facility Management",
+            code: "N3-FAC",
+            miroLink: "https://miro.com/app/board/uXjVN-hsf-facility",
+            expanded: true,
+            children: [
+              {
+                id: "doc-n4-005",
+                niveau: "N4",
+                titel: "Technisch Onderhoud",
+                code: "N4-OHD",
+                documentCount: 12,
+                expanded: false,
+                children: []
+              },
+              {
+                id: "doc-n4-002",
+                niveau: "N4",
+                titel: "Reiniging & Hygiëne",
+                code: "N4-REI",
+                documentCount: 6,
+                expanded: false,
+                children: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "doc-n2-002",
+        niveau: "N2",
+        titel: "Veiligheid & Compliance",
+        code: "N2-VEI",
+        miroLink: "https://miro.com/app/board/uXjVN-hsf-safety",
+        expanded: false,
+        children: [
+          {
+            id: "doc-n3-003",
+            niveau: "N3",
+            titel: "HSE Procedures",
+            code: "N3-HSE",
+            miroLink: "https://miro.com/app/board/uXjVN-hsf-hse",
+            expanded: false,
+            children: []
+          }
+        ]
+      },
+      {
+        id: "doc-n2-003",
+        niveau: "N2",
+        titel: "Expeditie & Transport",
+        code: "N2-EXP",
+        miroLink: "https://miro.com/app/board/uXjVN-hsf-expeditie",
+        expanded: false,
+        children: [
+          {
+            id: "doc-n3-004",
+            niveau: "N3",
+            titel: "Outbound Logistiek",
+            code: "N3-OUT",
+            miroLink: "https://miro.com/app/board/uXjVN-hsf-outbound",
+            expanded: false,
+            children: [
+              {
+                id: "doc-n4-003",
+                niveau: "N4",
+                titel: "Verpakking & Palletisering",
+                code: "N4-PAL",
+                documentCount: 4,
+                expanded: false,
+                children: []
+              },
+              {
+                id: "doc-n4-006",
+                niveau: "N4",
+                titel: "Voorraadbeheer",
+                code: "N4-INV",
+                documentCount: 3,
+                expanded: false,
+                children: []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+
+export const personen: Persoon[] = [
+  { id: "pers-001", naam: "Jan van der Berg", functie: "Warehouse Manager", afdeling: "Warehouse", email: "j.vandenberg@hsf.nl" },
+  { id: "pers-002", naam: "Maria Jansen", functie: "Quality Coordinator", afdeling: "Kwaliteit", email: "m.jansen@hsf.nl" },
+  { id: "pers-003", naam: "Pieter de Groot", functie: "Teamleider Expeditie", afdeling: "Expeditie", email: "p.degroot@hsf.nl" },
+  { id: "pers-004", naam: "Kees Bakker", functie: "Technisch Manager", afdeling: "Technische Dienst", email: "k.bakker@hsf.nl" },
+  { id: "pers-005", naam: "Linda Smits", functie: "Operationeel Medewerker", afdeling: "Warehouse", email: "l.smits@hsf.nl" },
+  { id: "pers-006", naam: "Tom Hendriks", functie: "HSE Officer", afdeling: "Veiligheid", email: "t.hendriks@hsf.nl" }
+]
+
+export const rollen: Rol[] = [
+  { id: "rol-r", code: "R", naam: "Responsible", beschrijving: "Voert het werk uit", kleur: "#3b82f6" },
+  { id: "rol-a", code: "A", naam: "Accountable", beschrijving: "Eindverantwoordelijk, keurt goed", kleur: "#f59e0b" },
+  { id: "rol-c", code: "C", naam: "Consulted", beschrijving: "Wordt geraadpleegd", kleur: "#10b981" },
+  { id: "rol-i", code: "I", naam: "Informed", beschrijving: "Wordt geïnformeerd", kleur: "#78716c" }
+]
+
+export const raciMatrix: RACIToewijzing[] = [
+  {
+    documentId: "doc-001",
+    documentCode: "WI-HEF-001",
+    documentTitel: "Heftruckinspectie dagelijkse controle",
+    toewijzingen: {
+      "pers-005": "R",
+      "pers-001": "A",
+      "pers-004": "C",
+      "pers-006": "I"
+    }
+  },
+  {
+    documentId: "doc-002",
+    documentCode: "WI-REI-003",
+    documentTitel: "Schoonmaakprocedure koelcel",
+    toewijzingen: {
+      "pers-005": "R",
+      "pers-002": "A",
+      "pers-004": "C",
+      "pers-001": "I"
+    }
+  },
+  {
+    documentId: "doc-004",
+    documentCode: "PR-NRG-002",
+    documentTitel: "Noodprocedure stroomuitval",
+    toewijzingen: {
+      "pers-004": "R",
+      "pers-006": "A",
+      "pers-001": "C",
+      "pers-002": "C",
+      "pers-003": "I"
+    }
+  },
+  {
+    documentId: "doc-006",
+    documentCode: "WI-OHD-015",
+    documentTitel: "Preventief onderhoud koelinstallatie",
+    toewijzingen: {
+      "pers-004": "R",
+      "pers-001": "A",
+      "pers-002": "I"
+    }
+  },
+  {
+    documentId: "doc-007",
+    documentCode: "PR-VEI-001",
+    documentTitel: "Veiligheidsinstructie nieuwe medewerkers",
+    toewijzingen: {
+      "pers-006": "R",
+      "pers-002": "A",
+      "pers-001": "C",
+      "pers-003": "C",
+      "pers-004": "I"
+    }
+  }
+]
+
+export const versieHistorie: VersieHistorie[] = [
+  {
+    documentId: "doc-001",
+    documentCode: "WI-HEF-001",
+    versies: [
+      { versie: "1.2", datum: "2024-12-15", auteur: "Jan van der Berg", wijzigingen: "Veiligheidsstap 5 toegevoegd na incident", status: "active" },
+      { versie: "1.1", datum: "2024-10-20", auteur: "Maria Jansen", wijzigingen: "Review feedback verwerkt", status: "superseded" },
+      { versie: "1.0", datum: "2024-08-01", auteur: "Jan van der Berg", wijzigingen: "Initiële versie na AI-pipeline", status: "superseded" }
+    ]
+  },
+  {
+    documentId: "doc-004",
+    documentCode: "PR-NRG-002",
+    versies: [
+      { versie: "2.0", datum: "2024-12-18", auteur: "Kees Bakker", wijzigingen: "Uitgebreid met UPS-procedures en evacuatieroutes", status: "active" },
+      { versie: "1.1", datum: "2024-06-15", auteur: "Tom Hendriks", wijzigingen: "Contactpersonen bijgewerkt", status: "superseded" },
+      { versie: "1.0", datum: "2023-03-01", auteur: "Kees Bakker", wijzigingen: "Initiële versie", status: "superseded" }
+    ]
+  },
+  {
+    documentId: "doc-006",
+    documentCode: "WI-OHD-015",
+    versies: [
+      { versie: "3.1", datum: "2024-12-10", auteur: "Kees Bakker", wijzigingen: "Intervallen aangepast na fabrikantadvies", status: "active" },
+      { versie: "3.0", datum: "2024-09-01", auteur: "Kees Bakker", wijzigingen: "Nieuwe koelinstallatie toegevoegd", status: "superseded" },
+      { versie: "2.5", datum: "2024-05-15", auteur: "Kees Bakker", wijzigingen: "Checklist geoptimaliseerd", status: "superseded" },
+      { versie: "2.0", datum: "2023-11-01", auteur: "Kees Bakker", wijzigingen: "Major revisie na audit", status: "superseded" }
+    ]
+  }
+]
+
+export const statistieken: Statistieken = {
+  totaalDocumenten: 48,
+  actief: 32,
+  review: 8,
+  draft: 5,
+  obsolete: 3,
+  gemiddeldeVersie: "1.8",
+  laatsteUpdate: "2024-12-19"
+}

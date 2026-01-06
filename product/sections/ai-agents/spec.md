@@ -1,15 +1,15 @@
 # AI-agents Specification
 
 ## Overview
-Het AI-agents dashboard biedt inzicht in de volledige documentatie-pipeline van 7 gespecialiseerde agents. Gebruikers kunnen nieuwe pipeline runs starten met Plaud-opnames en foto's, de voortgang monitoren, agents configureren en resultaten reviewen.
+Het AI-agents dashboard biedt inzicht in de volledige documentatie-pipeline van 7 gespecialiseerde agents. Gebruikers kunnen nieuwe pipeline runs starten met PLAUD PDF-output en optionele foto's, meerdere datasets per run toevoegen, de voortgang monitoren, agents configureren en resultaten reviewen.
 
 ## Agents Pipeline
 
 | # | Agent | Rol |
 |---|-------|-----|
 | 1A | Foto Analyzer | Beeldherkenning & labeling van apparatuur, locaties, materialen |
-| 1B | Stappenplan Generator | Transcriptie van Plaud-opname naar gestructureerde stappen |
-| 2 | Analyse & Codering | Matching met standaardzinnen en terminologie uit bibliotheek |
+| 1B | Document Parser | Extractie van gestructureerde stappen uit PLAUD PDF-output |
+| 2 | Analyse & Codering | Matching met standaardzinnen en terminologie uit Glossary |
 | 3 | Stijl Agent | Toepassen schrijfstandaard, format en documentstructuur |
 | 4 | Review Agent | Kwaliteitsvalidatie, compliance check, suggesties |
 | 5 | Opslag Agent | Documentatie archivering en bibliotheek-integratie |
@@ -17,26 +17,10 @@ Het AI-agents dashboard biedt inzicht in de volledige documentatie-pipeline van 
 
 **Pipeline Flow:** 1A + 1B (parallel) → 2 → 3 → 4 → 5 (met 6 als continue monitor)
 
-## Plaud Prompt Template
-
-Bij het starten van een nieuwe run wordt de volgende prompt template meegegeven:
-
-```
-Je bent een expert in het vastleggen van werkprocedures. Ik ga nu een taak uitvoeren en hardop beschrijven wat ik doe. Maak van mijn beschrijving een gestructureerde werkinstructie.
-
-Let op:
-- Elke fysieke handeling = apart stap
-- Gebruik imperatiefvorm (Pak, Draai, Controleer)
-- Noteer gereedschap en materialen
-- Markeer veiligheidspunten met [VEILIGHEID]
-- Markeer kwaliteitscontroles met [CONTROLE]
-
-Ik begin nu met: [TAAKNAAM]
-```
-
 ## User Flows
 
-- Nieuwe pipeline run starten met Plaud-opname en foto's uploaden
+- Nieuwe pipeline run starten met PLAUD PDF(s) en optionele foto's uploaden
+- Meerdere datasets toevoegen aan één run (bijv. meerdere PDFs voor gerelateerde procedures)
 - Realtime voortgang van pipeline runs monitoren per agent-stap
 - Agent-specifieke configuratie aanpassen (prompts, thresholds, instellingen)
 - Resultaten van voltooide runs reviewen en goedkeuren of afwijzen
@@ -66,13 +50,18 @@ Ik begin nu met: [TAAKNAAM]
   - Log historie
 
 ### Nieuwe Run Tab
-- Stap-voor-stap wizard:
-  1. Plaud-opname uploaden (audio file)
-  2. Foto's uploaden (drag & drop, meerdere)
-  3. Metadata invoeren (taaknaam, categorie, locatie)
-  4. Review & Start
-- Referentie naar Plaud prompt template
-- Validatie voor vereiste velden
+- Drag & drop zone voor bestanden:
+  - PLAUD PDF-output (verplicht, meerdere toegestaan)
+  - Foto's (optioneel, meerdere toegestaan)
+- Bestandenlijst met:
+  - Preview thumbnails
+  - Type-indicator (PDF/foto)
+  - Verwijder-knop per bestand
+  - Mogelijkheid om extra bestanden toe te voegen
+- Dataset groepering:
+  - Optie om PDFs te groeperen als één procedure of als aparte procedures
+  - Metadata per dataset (taaknaam, categorie, locatie)
+- Review & Start knop met validatie
 
 ### Pipeline Visualisatie
 - Horizontale flow diagram met 7 agent-stappen
