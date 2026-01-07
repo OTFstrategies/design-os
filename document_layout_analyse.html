@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Layout - Statisch vs Dynamisch</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+        h1 { text-align: center; margin-bottom: 20px; color: #002060; }
+        .legend { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .legend-box { width: 20px; height: 20px; border-radius: 3px; }
+        .static { background: #c8e6c9; border: 2px solid #4caf50; }
+        .semi { background: #fff3e0; border: 2px solid #ff9800; }
+        .dynamic { background: #ffcdd2; border: 2px solid #f44336; }
+        .growing { background: #e1bee7; border: 2px solid #9c27b0; }
+        
+        .page { background: white; width: 600px; margin: 0 auto 30px; padding: 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        .header { border-bottom: 2px solid #002060; padding-bottom: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .header-text { font-weight: bold; color: #002060; font-size: 11px; }
+        .logo-placeholder { width: 80px; height: 50px; border: 1px dashed #002060; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #002060; }
+        
+        .metadata-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 10px; }
+        .metadata-table td { border: 1px solid #000; padding: 5px; }
+        .metadata-table .label { font-weight: bold; background: #f0f0f0; }
+        
+        .section-title { font-weight: bold; color: #002060; margin: 15px 0 10px; font-size: 12px; }
+        
+        .raci-table { width: 100%; border-collapse: collapse; font-size: 9px; margin-bottom: 15px; }
+        .raci-table td, .raci-table th { border: 1px solid #000; padding: 4px; text-align: center; }
+        .raci-table th { background: #f0f0f0; }
+        
+        .content-block { padding: 10px; margin: 10px 0; font-size: 11px; }
+        
+        .footer { border-top: 1px solid #ccc; padding-top: 10px; margin-top: 20px; font-size: 9px; display: flex; justify-content: space-between; }
+        
+        .annotation { font-size: 9px; padding: 2px 5px; border-radius: 3px; margin-left: 5px; }
+        .ann-static { background: #c8e6c9; }
+        .ann-semi { background: #fff3e0; }
+        .ann-dynamic { background: #ffcdd2; }
+        .ann-growing { background: #e1bee7; }
+        
+        .risk-section { background: #fff; padding: 20px; margin: 20px auto; width: 600px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .risk-section h2 { color: #002060; margin-bottom: 15px; }
+        .risk-item { display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee; }
+        .risk-item:last-child { border-bottom: none; }
+        .risk-level { width: 80px; text-align: center; padding: 3px 8px; border-radius: 3px; font-size: 11px; font-weight: bold; }
+        .risk-high { background: #ffcdd2; color: #c62828; }
+        .risk-medium { background: #fff3e0; color: #ef6c00; }
+        .risk-low { background: #c8e6c9; color: #2e7d32; }
+        .risk-name { flex: 1; margin-left: 15px; }
+        .risk-issue { font-size: 11px; color: #666; margin-left: 15px; flex: 2; }
+    </style>
+</head>
+<body>
+    <h1>Document Layout: Statisch vs Dynamisch Analyse</h1>
+    
+    <div class="legend">
+        <div class="legend-item"><div class="legend-box static"></div> 🔒 Statisch (vergrendelen)</div>
+        <div class="legend-item"><div class="legend-box semi"></div> 🔄 Semi-dynamisch (dropdown)</div>
+        <div class="legend-item"><div class="legend-box dynamic"></div> ✏️ Dynamisch (vrije invoer)</div>
+        <div class="legend-item"><div class="legend-box growing"></div> 📈 Groeiend (variabel aantal)</div>
+    </div>
+
+    <div class="page">
+        <!-- HEADER -->
+        <div class="header static">
+            <div class="header-text">
+                HEUSCHEN & SCHROUFF ORIENTAL FOODS TRADING BV
+                <span class="annotation ann-static">🔒 STATISCH</span>
+            </div>
+            <div class="logo-placeholder">LOGO<br><span class="annotation ann-static">🔒</span></div>
+        </div>
+
+        <!-- METADATA TABLE -->
+        <table class="metadata-table">
+            <tr>
+                <td class="label static">Title</td>
+                <td class="dynamic" colspan="2">
+                    [Vrije tekst]
+                    <span class="annotation ann-dynamic">✏️</span>
+                </td>
+                <td class="label static">Document number</td>
+                <td class="semi">
+                    WI-02.01.201
+                    <span class="annotation ann-semi">🔄</span>
+                </td>
+                <td class="label static">Version</td>
+                <td class="dynamic">
+                    V1.0
+                    <span class="annotation ann-dynamic">✏️</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label static">Document Type</td>
+                <td colspan="2" class="semi">
+                    ☐ PR ☒ WI ☐ DS ☐ FO
+                    <span class="annotation ann-semi">🔄</span>
+                </td>
+                <td class="label static">Created by</td>
+                <td class="semi">
+                    [Naam]
+                    <span class="annotation ann-semi">🔄</span>
+                </td>
+                <td class="label static">Department</td>
+                <td class="semi">
+                    PMO
+                    <span class="annotation ann-semi">🔄</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label static">Date</td>
+                <td colspan="2" class="dynamic">
+                    DD/MM/YYYY
+                    <span class="annotation ann-dynamic">✏️</span>
+                </td>
+                <td class="label static">Approved by</td>
+                <td class="semi">
+                    [Naam]
+                    <span class="annotation ann-semi">🔄</span>
+                </td>
+                <td class="label static">Certification</td>
+                <td class="semi">
+                    [Standaard]
+                    <span class="annotation ann-semi">🔄</span>
+                </td>
+            </tr>
+        </table>
+
+        <!-- CHANGE HISTORY -->
+        <div class="section-title static">Change history <span class="annotation ann-static">🔒 Structuur vast</span></div>
+        <table class="metadata-table">
+            <tr class="static">
+                <td class="label">Version</td>
+                <td class="label">Date</td>
+                <td class="label">Description of Change</td>
+                <td class="label">Changed by</td>
+                <td class="label">Approved by</td>
+            </tr>
+            <tr class="growing">
+                <td class="dynamic">V1.0</td>
+                <td class="dynamic">21/11/2025</td>
+                <td class="dynamic">Initial creation</td>
+                <td class="dynamic">Berry Verhooren</td>
+                <td class="dynamic">[Naam]</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align: center; color: #9c27b0;">
+                    📈 Rijen groeien per versie
+                    <span class="annotation ann-growing">📈</span>
+                </td>
+            </tr>
+        </table>
+
+        <!-- SECTION 1 -->
+        <div class="section-title static">1) Doel en scope <span class="annotation ann-static">🔒 Titel vast</span></div>
+        <div class="content-block dynamic">
+            [Vrije tekst beschrijving van doel en scope]
+            <span class="annotation ann-dynamic">✏️ 100% DYNAMISCH</span>
+        </div>
+
+        <!-- SECTION 2 - RACI -->
+        <div class="section-title static">2) RACI <span class="annotation ann-static">🔒 Titel vast</span></div>
+        <table class="raci-table">
+            <tr>
+                <th class="static" rowspan="2">Activity / Deliverable</th>
+                <th class="semi" colspan="8">
+                    ROLLEN (variabel aantal)
+                    <span class="annotation ann-semi">🔄 Uit rollenlijst</span>
+                </th>
+            </tr>
+            <tr>
+                <th class="semi">Ops Mgr</th>
+                <th class="semi">Supervisor</th>
+                <th class="semi">Specialist</th>
+                <th class="semi">Uitrijder</th>
+                <th class="semi">Inruimer</th>
+                <th class="semi">Log Ops</th>
+                <th class="semi">SC</th>
+                <th class="semi">Quality</th>
+            </tr>
+            <tr class="growing">
+                <td class="dynamic" style="text-align: left;">[Activiteit 1]</td>
+                <td class="semi">A</td>
+                <td class="semi">C</td>
+                <td class="semi">R</td>
+                <td class="semi">I</td>
+                <td class="semi"></td>
+                <td class="semi">C</td>
+                <td class="semi">C</td>
+                <td class="semi">C</td>
+            </tr>
+            <tr>
+                <td colspan="9" style="text-align: center; color: #9c27b0;">
+                    📈 Rijen groeien per activiteit | 🔄 RACI codes uit vaste set [R/A/C/I/C-I]
+                </td>
+            </tr>
+        </table>
+
+        <!-- SECTION 3 -->
+        <div class="section-title static">3) Beschrijving <span class="annotation ann-static">🔒 Titel vast</span></div>
+        <div class="content-block">
+            <div class="growing" style="margin-bottom: 8px;">
+                1. [Processtap - vrije tekst] <span class="annotation ann-dynamic">✏️</span>
+                <div style="margin-left: 20px; margin-top: 5px;">
+                    • [Sub-item bullet] <span class="annotation ann-dynamic">✏️</span><br>
+                    • [Sub-item bullet] <span class="annotation ann-dynamic">✏️</span>
+                </div>
+            </div>
+            <div style="color: #9c27b0; font-size: 10px;">
+                📈 Aantal stappen variabel | Nesting tot 2 niveaus
+            </div>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="section-title static">4) Control <span class="annotation ann-static">🔒 Titel vast</span></div>
+        <div class="content-block dynamic">
+            [Beschrijving controlemechanismen]
+            <span class="annotation ann-dynamic">✏️ DYNAMISCH</span>
+        </div>
+
+        <!-- SECTION 5 -->
+        <div class="section-title static">5) Afkortingen / Begrippen <span class="annotation ann-static">🔒 Titel vast</span></div>
+        <div class="content-block growing">
+            <div>ACO: Artikel Controleur Ontvangstgoederen <span class="annotation ann-dynamic">✏️</span></div>
+            <div>FYCO: Fysieke controle <span class="annotation ann-dynamic">✏️</span></div>
+            <div style="color: #9c27b0; font-size: 10px; margin-top: 5px;">
+                📈 Aantal afkortingen variabel per document
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <div>
+                <span class="static" style="padding: 2px 5px;">Every printed copy is an uncontrolled copy!</span>
+                <span class="annotation ann-static">🔒</span><br>
+                <span class="dynamic" style="padding: 2px 5px;">Document Name: [insert Document name]</span>
+                <span class="annotation ann-dynamic">✏️ AUTO-VULLEN!</span>
+                | <span class="dynamic">Version: V1.0</span>
+            </div>
+            <div>
+                <span class="static">Page X of Y</span>
+                <span class="annotation ann-static">🔒 Word-veld</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- RISK SUMMARY -->
+    <div class="risk-section">
+        <h2>🎯 Risico Prioritering</h2>
+        
+        <div class="risk-item">
+            <span class="risk-level risk-high">HOOG</span>
+            <span class="risk-name"><strong>RACI Matrix</strong></span>
+            <span class="risk-issue">Variabele kolommen, inconsistente rolnamen, complexe structuur</span>
+        </div>
+        
+        <div class="risk-item">
+            <span class="risk-level risk-high">HOOG</span>
+            <span class="risk-name"><strong>Beschrijving opmaak</strong></span>
+            <span class="risk-issue">224x direct formatting, 0x stijlen - niet beheersbaar</span>
+        </div>
+        
+        <div class="risk-item">
+            <span class="risk-level risk-medium">MIDDEL</span>
+            <span class="risk-name"><strong>Terminologie</strong></span>
+            <span class="risk-issue">Inconsistente rol-, locatie- en systeemnamen</span>
+        </div>
+        
+        <div class="risk-item">
+            <span class="risk-level risk-medium">MIDDEL</span>
+            <span class="risk-name"><strong>Metadata invoer</strong></span>
+            <span class="risk-issue">Geen validatie op formaten (datum, versie, docnummer)</span>
+        </div>
+        
+        <div class="risk-item">
+            <span class="risk-level risk-low">LAAG</span>
+            <span class="risk-name"><strong>Header/Footer</strong></span>
+            <span class="risk-issue">Grotendeels statisch, makkelijk te vergrendelen</span>
+        </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="risk-section">
+        <h2>⚡ Quick Wins</h2>
+        <ol style="margin-left: 20px; line-height: 1.8;">
+            <li><strong>DocProperty velden</strong> voor footer → automatisch vullen vanuit metadata</li>
+            <li><strong>Department dropdown</strong> → Content Control met vaste lijst</li>
+            <li><strong>Rolnamenlijst</strong> publiceren → RACI consistentie</li>
+            <li><strong>Word-stijlen</strong> definiëren → HS_Sectiekop, HS_Bodytekst, etc.</li>
+            <li><strong>RACI code dropdown</strong> → alleen R/A/C/I/C-I toegestaan</li>
+        </ol>
+    </div>
+
+</body>
+</html>
